@@ -636,10 +636,16 @@ function renderHistory() {
   const players=getPlayers(); const matches=currentGroupData&&currentGroupData.matches?Object.entries(currentGroupData.matches):[];
   if(!matches.length){document.getElementById('tab-history').innerHTML='<div class="empty"><div class="empty-icon">📜</div><div class="empty-text">Aucune partie encore.</div></div>';return;}
   const gn=id=>players[id]?players[id].name:'?';
-  let html=matches.sort(([,a],[,b])=>b.createdAt-a.createdAt).map(([,m])=>{
+  let html=matches.sort(([,a],[,b])=>b.createdAt-a.createdAt).map(([mid,m])=>{
     const winA=m.winner==='A';
     return `<div class="match-card">
-      <div class="match-card-top"><span class="match-meta">${fmtDate(m.createdAt)}</span><span class="match-meta">par ${m.addedBy}</span></div>
+      <div class="match-card-top">
+        <span class="match-meta">${fmtDate(m.createdAt)}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="match-meta">par ${m.addedBy}</span>
+          <button class="btn-danger" style="padding:4px 10px;font-size:11px;" onclick="deleteMatch('${mid}')">🗑️ Supprimer</button>
+        </div>
+      </div>
       <div class="match-teams">
         <div class="match-team ${winA?'winner':'loser'}">${m.teamA.map(id=>`<span class="player-tag">${gn(id)}</span>`).join('')}</div>
         <div class="match-score"><span class="${winA?'sw':'sl'}">${m.scoreA}</span><span style="color:var(--muted);font-size:14px;"> – </span><span class="${!winA?'sw':'sl'}">${m.scoreB}</span></div>
@@ -683,6 +689,13 @@ window.renderStats = () => {
     </div>
     <div class="stat-card" style="margin-bottom:12px;"><div class="stat-card-val">${maxS}</div><div class="stat-card-label">Meilleure série</div></div>
     ${h2hHtml}`;
+};
+
+
+window.deleteMatch = async mid => {
+  if(!confirm('Supprimer cette partie ?')) return;
+  await remove(ref(db,`groups/${currentGroupId}/matches/${mid}`));
+  showToast('Partie supprimée.');
 };
 
 // ── TABS ──
