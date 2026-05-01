@@ -201,7 +201,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       <button class="btn btn-accent" id="login-btn" onclick="login()">Se connecter</button>
       <div class="divider">ou</div>
       <div class="field" id="invite-field" style="display:none;"><label>Code d'invitation</label><input id="login-invite" type="text" placeholder="ex: ABC123" maxlength="8" style="text-transform:uppercase;letter-spacing:2px;font-family:monospace;font-size:16px;text-align:center;"></div>
-      <button class="btn btn-outline" onclick="showInviteField()">Créer un compte</button>
+      <button class="btn btn-outline" id="register-btn" onclick="showInviteField()">Créer un compte</button>
     </div>
   </div>
 </div>
@@ -402,7 +402,7 @@ window.logout = () => {
   document.getElementById('login-screen').classList.add('active');
   document.getElementById('invite-field').style.display='none';
   document.getElementById('login-invite').value='';
-  const btn = document.querySelector('.btn-outline');
+  const btn = document.getElementById('register-btn');
   if(btn){btn.textContent='Créer un compte';btn.onclick=showInviteField;}
 };
 
