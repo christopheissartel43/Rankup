@@ -433,7 +433,7 @@ window.removeAdmin = async (username) => {
   if(!(await isAdmin())){showToast('Accès refusé.','error');return;}
   await remove(ref(db,`admins/${username}`));
   await set(ref(db,`users/${username}/isAdmin`),false);
-  showToast(username+' n'est plus admin.');
+  showToast(username+' n\'est plus admin.');
   renderAdminPanel();
 };
 
