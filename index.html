@@ -467,7 +467,7 @@ async function renderAdminPanel() {
   const codes = codesSnap.exists()?codesSnap.val():{};
   const activeCodes = Object.entries(codes).filter(([,c])=>!c.used);
   const usedCount = Object.values(codes).filter(c=>c.used).length;
-  let html = '<div class="section-title">Codes d'invitation</div>';
+  let html = '<div class="section-title">Codes d\'invitation</div>';
   html += '<button class="btn btn-accent" style="width:auto;padding:10px 20px;margin-bottom:16px;" onclick="generateInviteCode()">+ Générer un code</button>';
   if(!activeCodes.length){
     html += '<div style="font-size:13px;color:var(--muted);margin-bottom:16px;">Aucun code actif.</div>';
