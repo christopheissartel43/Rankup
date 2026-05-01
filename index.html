@@ -200,7 +200,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       <div class="field"><label>Mot de passe</label><input id="login-pass" type="password" placeholder="••••••••"></div>
       <button class="btn btn-accent" id="login-btn" onclick="login()">Se connecter</button>
       <div class="divider">ou</div>
-      <button class="btn btn-outline" onclick="register()">Créer un compte</button>
+      <div class="field" id="invite-field" style="display:none;"><label>Code d'invitation</label><input id="login-invite" type="text" placeholder="ex: ABC123" maxlength="8" style="text-transform:uppercase;letter-spacing:2px;font-family:monospace;font-size:16px;text-align:center;"></div>
+      <button class="btn btn-outline" onclick="showInviteField()">Créer un compte</button>
     </div>
   </div>
 </div>
@@ -223,6 +224,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <button class="tab" onclick="switchTab('stats')">📊 Stats</button>
     <button class="tab" onclick="switchTab('players')">👥 Joueurs</button>
     <button class="tab" onclick="switchTab('groups')">🔑 Groupes</button>
+    <button class="tab" onclick="switchTab('admin')">👑 Admin</button>
   </div>
 
   <div class="content">
@@ -270,6 +272,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     </div>
     <div id="tab-players" class="tab-panel"><div class="loader"><div class="spin"></div>Chargement...</div></div>
     <div id="tab-groups" class="tab-panel"><div class="loader"><div class="spin"></div>Chargement...</div></div>
+    <div id="tab-admin" class="tab-panel"><div id="admin-panel"><div class="loader"><div class="spin"></div>Chargement...</div></div></div>
   </div>
 </div>
 
@@ -363,27 +366,147 @@ window.login = async () => {
 window.register = async () => {
   const name = document.getElementById('login-name').value.trim();
   const pass = document.getElementById('login-pass').value;
+  const invite = document.getElementById('login-invite').value.trim().toUpperCase();
   const err = document.getElementById('login-err');
   err.style.display='none';
   if (!name||!pass){err.textContent='Remplis tous les champs.';err.style.display='block';return;}
   if (name.length<2){err.textContent='Nom trop court (2 min).';err.style.display='block';return;}
   if (pass.length<4){err.textContent='Mot de passe trop court (4 min).';err.style.display='block';return;}
   try {
+    // Check if first user (no admin exists yet)
+    const adminSnap = await get(ref(db,'admins'));
+    const isFirstUser = !adminSnap.exists();
+    if (!isFirstUser) {
+      // Require invite code
+      if (!invite){err.textContent='Code d\'invitation requis.';err.style.display='block';return;}
+      const invSnap = await get(ref(db,`inviteCodes/${invite}`));
+      if (!invSnap.exists()||invSnap.val().used){err.textContent='Code invalide ou déjà utilisé.';err.style.display='block';return;}
+      // Mark code as used
+      await set(ref(db,`inviteCodes/${invite}/used`), true);
+      await set(ref(db,`inviteCodes/${invite}/usedBy`), name);
+    }
     if ((await get(ref(db,`users/${name}`))).exists()){err.textContent='Nom déjà pris.';err.style.display='block';return;}
-    const ud = {password:btoa(pass),createdAt:Date.now()};
+    const ud = {password:btoa(pass),createdAt:Date.now(),isAdmin:isFirstUser};
     await set(ref(db,`users/${name}`), ud);
+    if (isFirstUser) await set(ref(db,`admins/${name}`), true);
     currentUser = {name,...ud};
     startApp();
-    showToast('Bienvenue '+name+' ! 🎮');
+    showToast(isFirstUser ? 'Bienvenue admin '+name+' ! 👑' : 'Bienvenue '+name+' ! 🎮');
   } catch(e){err.textContent='Erreur: '+e.message;err.style.display='block';}
 };
 
 window.logout = () => {
   currentUser=null;currentGroupId=null;currentGroupData=null;allGroups={};
   if(unsubFn){unsubFn();unsubFn=null;}
-  document.getElementById('login-screen').classList.add('active');
   document.getElementById('app-screen').classList.remove('active');
+  document.getElementById('login-screen').classList.add('active');
+  document.getElementById('invite-field').style.display='none';
+  document.getElementById('login-invite').value='';
+  const btn = document.querySelector('.btn-outline');
+  if(btn){btn.textContent='Créer un compte';btn.onclick=showInviteField;}
 };
+
+// ── ADMIN ──
+async function isAdmin() {
+  const snap = await get(ref(db,`admins/${currentUser.name}`));
+  return snap.exists();
+}
+
+window.generateInviteCode = async () => {
+  if(!(await isAdmin())){showToast('Accès refusé.','error');return;}
+  const code = Math.random().toString(36).substring(2,8).toUpperCase();
+  await set(ref(db,`inviteCodes/${code}`),{createdBy:currentUser.name,createdAt:Date.now(),used:false});
+  showToast('Code créé: '+code);
+  renderAdminPanel();
+};
+
+window.makeAdmin = async (username) => {
+  if(!(await isAdmin())){showToast('Accès refusé.','error');return;}
+  await set(ref(db,`admins/${username}`),true);
+  await set(ref(db,`users/${username}/isAdmin`),true);
+  showToast(username+' est maintenant admin 👑');
+  renderAdminPanel();
+};
+
+window.removeAdmin = async (username) => {
+  if(username===currentUser.name){showToast('Tu ne peux pas te retirer toi-même.','error');return;}
+  if(!(await isAdmin())){showToast('Accès refusé.','error');return;}
+  await remove(ref(db,`admins/${username}`));
+  await set(ref(db,`users/${username}/isAdmin`),false);
+  showToast(username+' n'est plus admin.');
+  renderAdminPanel();
+};
+
+window.deleteUser = async (username) => {
+  if(username===currentUser.name){showToast('Tu ne peux pas te supprimer toi-même.','error');return;}
+  if(!(await isAdmin())){showToast('Accès refusé.','error');return;}
+  if(!confirm('Supprimer le compte de '+username+' ?')) return;
+  await remove(ref(db,`users/${username}`));
+  await remove(ref(db,`admins/${username}`));
+  showToast('Compte supprimé.');
+  renderAdminPanel();
+};
+
+window.deleteInviteCode = async (code) => {
+  if(!(await isAdmin())){showToast('Accès refusé.','error');return;}
+  await remove(ref(db,`inviteCodes/${code}`));
+  showToast('Code supprimé.');
+  renderAdminPanel();
+};
+
+async function renderAdminPanel() {
+  const panel = document.getElementById('admin-panel');
+  if(!panel) return;
+  const admin = await isAdmin();
+  if(!admin){panel.innerHTML='<div class="empty"><div class="empty-icon">🔒</div><div class="empty-text">Accès réservé aux administrateurs.</div></div>';return;}
+  const usersSnap = await get(ref(db,'users'));
+  const adminsSnap = await get(ref(db,'admins'));
+  const codesSnap = await get(ref(db,'inviteCodes'));
+  const users = usersSnap.exists()?usersSnap.val():{};
+  const admins = adminsSnap.exists()?adminsSnap.val():{};
+  const codes = codesSnap.exists()?codesSnap.val():{};
+  const activeCodes = Object.entries(codes).filter(([,c])=>!c.used);
+  const usedCount = Object.values(codes).filter(c=>c.used).length;
+  let html = '<div class="section-title">Codes d'invitation</div>';
+  html += '<button class="btn btn-accent" style="width:auto;padding:10px 20px;margin-bottom:16px;" onclick="generateInviteCode()">+ Générer un code</button>';
+  if(!activeCodes.length){
+    html += '<div style="font-size:13px;color:var(--muted);margin-bottom:16px;">Aucun code actif.</div>';
+  } else {
+    html += '<div class="players-list" style="margin-bottom:8px;">';
+    activeCodes.forEach(([code,c])=>{
+      html += `<div class="player-item">
+        <div class="player-item-left">
+          <div style="font-family:monospace;font-size:18px;letter-spacing:3px;color:var(--accent);font-weight:700;">${code}</div>
+          <div class="player-stats-mini">par ${c.createdBy}</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-sm btn-sm-ghost" onclick="navigator.clipboard.writeText('${code}').then(()=>showToast('Copié !'))">📋</button>
+          <button class="btn-danger" onclick="deleteInviteCode('${code}')">🗑️</button>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+  if(usedCount>0) html+=`<div style="font-size:12px;color:var(--muted);margin-bottom:20px;">${usedCount} code(s) déjà utilisé(s)</div>`;
+  html += '<div class="section-title">Comptes utilisateurs</div><div class="players-list">';
+  Object.entries(users).forEach(([uname])=>{
+    const isAdm=admins[uname], isMe=uname===currentUser.name;
+    html += `<div class="player-item">
+      <div class="player-item-left">
+        <div class="avatar" style="width:34px;height:34px;font-size:12px;">${uname.slice(0,2).toUpperCase()}</div>
+        <div><div style="font-weight:500;">${uname}${isAdm?' 👑':''}${isMe?' (moi)':''}</div>
+        <div class="player-stats-mini">${isAdm?'Administrateur':'Membre'}</div></div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${!isAdm&&!isMe?`<button class="btn-sm btn-sm-accent" onclick="makeAdmin('${uname}')">👑</button>`:''}
+        ${isAdm&&!isMe?`<button class="btn-sm btn-sm-ghost" onclick="removeAdmin('${uname}')">- admin</button>`:''}
+        ${!isMe?`<button class="btn-danger" onclick="deleteUser('${uname}')">🗑️</button>`:''}
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  panel.innerHTML = html;
+}
 
 function startApp() {
   document.getElementById('login-screen').classList.remove('active');
@@ -699,7 +822,7 @@ window.deleteMatch = async mid => {
 };
 
 // ── TABS ──
-const tabNames=['rank','match','history','stats','players','groups'];
+const tabNames=['rank','match','history','stats','players','groups','admin'];
 window.switchTab = tab => {
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
@@ -716,6 +839,7 @@ function refreshTab() {
   else if(id==='tab-match') renderMatchPlayers();
   else if(id==='tab-stats'){renderPlayers();renderStats();}
   else if(id==='tab-groups') renderGroupsPanel();
+  else if(id==='tab-admin') renderAdminPanel();
 }
 </script>
 </body>
