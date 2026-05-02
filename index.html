@@ -6,32 +6,14 @@
 <title>RANKUP</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #07070f;
-  --s1: #0d0d1c;
-  --s2: #13132a;
-  --s3: #1a1a35;
-  --border: rgba(100,100,255,0.15);
-  --accent: #6c63ff;
-  --accent-glow: rgba(108,99,255,0.3);
-  --green: #43e97b;
-  --red: #ff6584;
-  --gold: #ffd700;
-  --silver: #b0b0c0;
-  --bronze: #cd7f32;
-  --text: #eeeeff;
-  --muted: #5555aa;
-}
+:root{--bg:#07070f;--s1:#0d0d1c;--s2:#13132a;--s3:#1a1a35;--border:rgba(100,100,255,0.15);--accent:#6c63ff;--aglow:rgba(108,99,255,0.3);--green:#43e97b;--red:#ff6584;--gold:#ffd700;--silver:#b0b0c0;--bronze:#cd7f32;--text:#eeeeff;--muted:#5555aa;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 15%,rgba(108,99,255,0.08) 0%,transparent 55%),radial-gradient(ellipse at 85% 85%,rgba(67,233,123,0.04) 0%,transparent 55%);pointer-events:none;z-index:0;}
-
 .screen{display:none;min-height:100vh;position:relative;z-index:1;}
 .screen.active{display:block;}
-.flex-center{display:none!important;align-items:center;justify-content:center;}
-.flex-center.active{display:flex!important;}
-
-/* LOGIN */
+.flex-screen{display:none;min-height:100vh;position:relative;z-index:1;align-items:center;justify-content:center;}
+.flex-screen.active{display:flex;}
 #login-screen{padding:20px;}
 .login-wrap{width:100%;max-width:420px;margin:0 auto;padding-top:60px;}
 .logo{font-family:'Orbitron',monospace;font-size:52px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,#6c63ff,#43e97b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
@@ -45,16 +27,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .field select option{background:var(--s2);}
 .btn{width:100%;padding:13px;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;margin-top:4px;}
 .btn-accent{background:var(--accent);color:#fff;}
-.btn-accent:hover{opacity:0.88;transform:translateY(-1px);box-shadow:0 8px 24px var(--accent-glow);}
-.btn-accent:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-accent:hover{opacity:0.88;transform:translateY(-1px);box-shadow:0 8px 24px var(--aglow);}
+.btn-accent:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
 .btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent);margin-top:10px;}
 .btn-outline:hover{background:rgba(108,99,255,0.1);}
 .err{background:rgba(255,101,132,0.1);border:1px solid rgba(255,101,132,0.3);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red);margin-bottom:14px;display:none;}
 .divider{text-align:center;color:var(--muted);font-size:12px;margin:16px 0;position:relative;}
 .divider::before,.divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--border);}
 .divider::before{left:0;}.divider::after{right:0;}
-
-/* APP */
 #app-screen{flex-direction:column;}
 #app-screen.active{display:flex!important;}
 .topbar{background:var(--s1);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
@@ -63,25 +43,19 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .btn-sm{padding:7px 14px;border:none;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;}
 .btn-sm-accent{background:var(--accent);color:#fff;}
 .btn-sm-ghost{background:transparent;color:var(--muted);border:1px solid var(--border);}
-.btn-sm-ghost:hover{color:var(--text);border-color:var(--muted);}
-
+.btn-sm-ghost:hover{color:var(--text);}
 .tabs{display:flex;background:var(--s1);border-bottom:1px solid var(--border);overflow-x:auto;}
-.tab{flex:1;min-width:75px;padding:13px 6px;border:none;background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+.tab{flex:1;min-width:70px;padding:13px 6px;border:none;background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent);}
 .tab:hover:not(.active){color:var(--text);}
-
 .content{padding:20px;max-width:700px;margin:0 auto;width:100%;}
 .tab-panel{display:none;}.tab-panel.active{display:block;}
-.section-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;margin-top:24px;}
-.section-title:first-child{margin-top:0;}
-
-/* GROUP BAR */
+.sec{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;margin-top:24px;}
+.sec:first-child{margin-top:0;}
 .group-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:20px;}
-.group-chip{padding:7px 14px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--s2);color:var(--muted);transition:all 0.2s;white-space:nowrap;}
-.group-chip.active{background:var(--accent);color:#fff;border-color:var(--accent);}
-.group-chip:hover:not(.active){color:var(--text);}
-
-/* LEADERBOARD */
+.gchip{padding:7px 14px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--s2);color:var(--muted);transition:all 0.2s;white-space:nowrap;}
+.gchip.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.gchip:hover:not(.active){color:var(--text);}
 .lb-table{width:100%;border-collapse:collapse;}
 .lb-table th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);}
 .lb-table th:not(:first-child){text-align:center;}
@@ -89,142 +63,119 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .lb-row:hover{background:rgba(108,99,255,0.05);}
 .lb-row td{padding:12px 10px;font-size:14px;vertical-align:middle;}
 .lb-row td:not(:first-child){text-align:center;}
-.rank-num{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;width:28px;display:inline-block;text-align:center;}
-.rank-1{color:var(--gold);}.rank-2{color:var(--silver);}.rank-3{color:var(--bronze);}.rank-other{color:var(--muted);}
-.player-name-cell{display:flex;align-items:center;gap:10px;}
-.ratio-bar{height:4px;background:var(--s3);border-radius:2px;width:50px;display:inline-block;vertical-align:middle;margin-left:6px;overflow:hidden;}
-.ratio-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;}
-.stat-good{color:var(--green);}.stat-bad{color:var(--red);}.stat-neutral{color:var(--muted);}
-
-/* MATCH */
+.rn{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;width:28px;display:inline-block;text-align:center;}
+.r1{color:var(--gold);}.r2{color:var(--silver);}.r3{color:var(--bronze);}.r0{color:var(--muted);}
+.pnc{display:flex;align-items:center;gap:10px;}
+.rbar{height:4px;background:var(--s3);border-radius:2px;width:50px;display:inline-block;vertical-align:middle;margin-left:6px;overflow:hidden;}
+.rfill{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;}
+.sg{color:var(--green);}.sb{color:var(--red);}.sn{color:var(--muted);}
 .match-builder{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:24px;}
 .teams-row{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:start;margin-bottom:20px;}
 .team-box{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:16px;}
 .team-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px;}
 .vs-badge{display:flex;align-items:center;justify-content:center;padding-top:36px;}
 .vs-text{font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:var(--muted);}
-.player-check{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;cursor:pointer;transition:background 0.15s;user-select:none;}
-.player-check:hover{background:rgba(108,99,255,0.1);}
-.player-check input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer;}
+.pcheck{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;cursor:pointer;transition:background 0.15s;user-select:none;}
+.pcheck:hover{background:rgba(108,99,255,0.1);}
+.pcheck input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer;}
 .score-row{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end;margin-bottom:20px;}
-.score-input-wrap{display:flex;flex-direction:column;gap:6px;}
-.score-input-wrap label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
-.score-input-wrap input{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Orbitron',monospace;font-size:22px;font-weight:700;text-align:center;outline:none;width:100%;transition:border-color 0.2s;}
-.score-input-wrap input:focus{border-color:var(--accent);}
-.score-dash{font-family:'Orbitron',monospace;font-size:20px;color:var(--muted);text-align:center;padding-bottom:12px;}
-.win-select{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;outline:none;width:100%;margin-bottom:16px;transition:border-color 0.2s;}
-.win-select:focus{border-color:var(--accent);}
-
-/* HISTORY */
-.match-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;}
-.match-card-top{display:flex;justify-content:space-between;margin-bottom:10px;}
-.match-meta{font-size:11px;color:var(--muted);}
-.match-teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;}
-.match-team{display:flex;flex-direction:column;gap:3px;}
-.player-tag{font-size:13px;font-weight:500;}
-.match-team.winner .player-tag{color:var(--green);}
-.match-team.loser .player-tag{color:var(--muted);}
-.match-score{font-family:'Orbitron',monospace;font-size:20px;font-weight:700;text-align:center;white-space:nowrap;}
+.siw{display:flex;flex-direction:column;gap:6px;}
+.siw label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.siw input{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Orbitron',monospace;font-size:22px;font-weight:700;text-align:center;outline:none;width:100%;transition:border-color 0.2s;}
+.siw input:focus{border-color:var(--accent);}
+.sdash{font-family:'Orbitron',monospace;font-size:20px;color:var(--muted);text-align:center;padding-bottom:12px;}
+.wsel{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;outline:none;width:100%;margin-bottom:16px;transition:border-color 0.2s;}
+.wsel:focus{border-color:var(--accent);}
+.mc{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;}
+.mct{display:flex;justify-content:space-between;margin-bottom:10px;}
+.mm{font-size:11px;color:var(--muted);}
+.mteams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;}
+.mteam{display:flex;flex-direction:column;gap:3px;}
+.ptag{font-size:13px;font-weight:500;}
+.mteam.win .ptag{color:var(--green);}.mteam.lose .ptag{color:var(--muted);}
+.mscore{font-family:'Orbitron',monospace;font-size:20px;font-weight:700;text-align:center;white-space:nowrap;}
 .sw{color:var(--green);}.sl{color:var(--red);}
-
-/* PLAYERS */
-.players-list{display:flex;flex-direction:column;gap:8px;}
-.player-item{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
-.player-item-left{display:flex;align-items:center;gap:12px;}
-.player-stats-mini{font-size:12px;color:var(--muted);}
-.btn-danger{background:rgba(255,101,132,0.1);color:var(--red);border:1px solid rgba(255,101,132,0.2);padding:6px 12px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;transition:all 0.2s;}
-.btn-danger:hover{background:rgba(255,101,132,0.2);}
+.plist{display:flex;flex-direction:column;gap:8px;}
+.pitem{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+.piL{display:flex;align-items:center;gap:12px;}
+.psm{font-size:12px;color:var(--muted);}
+.bdanger{background:rgba(255,101,132,0.1);color:var(--red);border:1px solid rgba(255,101,132,0.2);padding:6px 12px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;transition:all 0.2s;}
+.bdanger:hover{background:rgba(255,101,132,0.2);}
 .add-row{display:flex;gap:10px;margin-top:12px;}
 .add-row input{flex:1;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:11px 16px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;}
 .add-row input:focus{border-color:var(--accent);}
-
-/* STATS */
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-.stat-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:16px;}
-.stat-card-val{font-family:'Orbitron',monospace;font-size:26px;font-weight:700;color:var(--accent);}
-.stat-card-label{font-size:12px;color:var(--muted);margin-top:4px;}
-.h2h-table{width:100%;border-collapse:collapse;font-size:13px;}
-.h2h-table th,.h2h-table td{padding:8px 10px;text-align:center;}
-.h2h-table th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--border);}
-.h2h-table th:first-child,.h2h-table td:first-child{text-align:left;}
-.h2h-table tr:not(:last-child) td{border-bottom:1px solid rgba(100,100,255,0.06);}
-.h2h-win{color:var(--green);font-weight:600;}.h2h-loss{color:var(--red);}
-
-/* GROUPS */
-.group-card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;}
-.group-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
-.group-card-name{font-size:17px;font-weight:600;}
-.group-card-meta{font-size:12px;color:var(--muted);margin-top:2px;}
-.group-code-btn{font-family:monospace;background:var(--s2);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:13px;letter-spacing:2px;cursor:pointer;transition:all 0.2s;color:var(--text);}
-.group-code-btn:hover{border-color:var(--accent);color:var(--accent);}
-.copy-hint{font-size:10px;color:var(--muted);margin-top:2px;text-align:center;}
-
-/* MODAL */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.scard{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.scv{font-family:'Orbitron',monospace;font-size:26px;font-weight:700;color:var(--accent);}
+.scl{font-size:12px;color:var(--muted);margin-top:4px;}
+.h2ht{width:100%;border-collapse:collapse;font-size:13px;}
+.h2ht th,.h2ht td{padding:8px 10px;text-align:center;}
+.h2ht th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--border);}
+.h2ht th:first-child,.h2ht td:first-child{text-align:left;}
+.h2ht tr:not(:last-child) td{border-bottom:1px solid rgba(100,100,255,0.06);}
+.h2w{color:var(--green);font-weight:600;}.h2l{color:var(--red);}
+.gcard{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;}
+.gcH{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.gcN{font-size:17px;font-weight:600;}
+.gcM{font-size:12px;color:var(--muted);margin-top:2px;}
+.gcC{font-family:monospace;background:var(--s2);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:13px;letter-spacing:2px;cursor:pointer;transition:all 0.2s;color:var(--text);}
+.gcC:hover{border-color:var(--accent);color:var(--accent);}
+.cphint{font-size:10px;color:var(--muted);margin-top:2px;text-align:center;}
 .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-backdrop.open{display:flex;}
 .modal{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:28px;width:100%;max-width:440px;}
 .modal-title{font-size:18px;font-weight:600;margin-bottom:20px;}
-.modal-actions{display:flex;gap:10px;margin-top:20px;}
-.modal-actions .btn{margin-top:0;}
-
-/* TOAST */
+.macts{display:flex;gap:10px;margin-top:20px;}
+.macts .btn{margin-top:0;}
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px 20px;font-size:14px;z-index:999;transition:transform 0.3s;white-space:nowrap;pointer-events:none;}
 #toast.show{transform:translateX(-50%) translateY(0);}
 #toast.success{border-color:rgba(67,233,123,0.4);color:var(--green);}
 #toast.error{border-color:rgba(255,101,132,0.4);color:var(--red);}
-
 .empty{text-align:center;padding:48px 20px;color:var(--muted);}
 .empty-icon{font-size:40px;margin-bottom:12px;}
 .loader{display:flex;align-items:center;justify-content:center;padding:48px;color:var(--muted);}
 .spin{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin-right:12px;}
 @keyframes spin{to{transform:rotate(360deg);}}
-
-@media(max-width:480px){
-  .teams-row{grid-template-columns:1fr;}
-  .vs-badge{padding-top:0;padding-bottom:4px;}
-  .stats-grid{grid-template-columns:1fr;}
-}
+@media(max-width:480px){.teams-row{grid-template-columns:1fr;}.vs-badge{padding-top:0;padding-bottom:4px;}.sgrid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="login-screen" class="screen flex-center active">
+<div id="login-screen" class="flex-screen active">
   <div class="login-wrap">
     <div class="logo">RANKUP</div>
-    <div class="logo-sub">Classement Jeux Vidéo</div>
+    <div class="logo-sub">Classement Jeux Video</div>
     <div class="card">
       <div class="card-title">Connexion / Inscription</div>
       <div class="err" id="login-err"></div>
       <div class="field"><label>Nom d'utilisateur</label><input id="login-name" type="text" placeholder="ex: Shadow42" maxlength="20" autocomplete="off"></div>
       <div class="field"><label>Mot de passe</label><input id="login-pass" type="password" placeholder="••••••••"></div>
-      <button class="btn btn-accent" id="login-btn" onclick="login()">Se connecter</button>
+      <button class="btn btn-accent" onclick="doLogin()">Se connecter</button>
       <div class="divider">ou</div>
-      <button class="btn btn-outline" onclick="register()">Créer un compte</button>
+      <div class="field" id="invite-field" style="display:none;"><label>Code d'invitation</label><input id="login-invite" type="text" placeholder="ex: ABC123" maxlength="8" style="text-transform:uppercase;letter-spacing:2px;font-family:monospace;font-size:16px;text-align:center;"></div>
+      <button class="btn btn-outline" id="register-btn" onclick="doShowInvite()">Creer un compte</button>
     </div>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app-screen" class="screen">
   <div class="topbar">
     <div class="topbar-logo">RANKUP</div>
     <div style="display:flex;align-items:center;gap:10px;">
       <div class="avatar" id="top-avatar">?</div>
       <span style="font-size:13px;font-weight:500;" id="top-name">-</span>
-      <button class="btn-sm btn-sm-ghost" onclick="logout()">⏻</button>
+      <button class="btn-sm btn-sm-ghost" onclick="doLogout()">off</button>
     </div>
   </div>
-
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('rank')">🏆 Classement</button>
-    <button class="tab" onclick="switchTab('match')">⚔️ Partie</button>
-    <button class="tab" onclick="switchTab('history')">📜 Historique</button>
-    <button class="tab" onclick="switchTab('stats')">📊 Stats</button>
-    <button class="tab" onclick="switchTab('players')">👥 Joueurs</button>
-    <button class="tab" onclick="switchTab('groups')">🔑 Groupes</button>
+    <button class="tab active" onclick="switchTab('rank')">Classement</button>
+    <button class="tab" onclick="switchTab('match')">Partie</button>
+    <button class="tab" onclick="switchTab('history')">Historique</button>
+    <button class="tab" onclick="switchTab('stats')">Stats</button>
+    <button class="tab" onclick="switchTab('players')">Joueurs</button>
+    <button class="tab" onclick="switchTab('groups')">Groupes</button>
+    <button class="tab" onclick="switchTab('admin')">Admin</button>
   </div>
-
   <div class="content">
     <div id="group-bar-wrap" style="display:none;margin-bottom:4px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
@@ -233,36 +184,35 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       </div>
       <div class="group-bar" id="group-bar"></div>
     </div>
-
     <div id="tab-rank" class="tab-panel active"><div class="loader"><div class="spin"></div>Chargement...</div></div>
     <div id="tab-match" class="tab-panel">
       <div class="match-builder">
-        <div class="section-title">Équipes</div>
+        <div class="sec">Equipes</div>
         <div class="teams-row">
-          <div class="team-box"><div class="team-label">🟦 Équipe A</div><div id="team-a-players"></div></div>
+          <div class="team-box"><div class="team-label">Equipe A</div><div id="team-a-players"></div></div>
           <div class="vs-badge"><div class="vs-text">VS</div></div>
-          <div class="team-box"><div class="team-label">🟥 Équipe B</div><div id="team-b-players"></div></div>
+          <div class="team-box"><div class="team-label">Equipe B</div><div id="team-b-players"></div></div>
         </div>
-        <div class="section-title">Score</div>
+        <div class="sec">Score</div>
         <div class="score-row">
-          <div class="score-input-wrap"><label>Équipe A</label><input type="number" id="score-a" min="0" max="13" placeholder="13" oninput="clampScore(this)"></div>
-          <div class="score-dash">—</div>
-          <div class="score-input-wrap"><label>Équipe B</label><input type="number" id="score-b" min="0" max="13" placeholder="7" oninput="clampScore(this)"></div>
+          <div class="siw"><label>Equipe A</label><input type="number" id="score-a" min="0" max="13" placeholder="13" oninput="clampScore(this)"></div>
+          <div class="sdash">-</div>
+          <div class="siw"><label>Equipe B</label><input type="number" id="score-b" min="0" max="13" placeholder="7" oninput="clampScore(this)"></div>
         </div>
-        <div class="section-title">Équipe gagnante (score 13)</div>
-        <select class="win-select" id="winner-select">
-          <option value="">-- Sélectionner --</option>
-          <option value="A">🟦 Équipe A</option>
-          <option value="B">🟥 Équipe B</option>
+        <div class="sec">Equipe gagnante (score 13)</div>
+        <select class="wsel" id="winner-select">
+          <option value="">-- Selectionner --</option>
+          <option value="A">Equipe A</option>
+          <option value="B">Equipe B</option>
         </select>
-        <button class="btn btn-accent" onclick="submitMatch()">✔ Valider la partie</button>
+        <button class="btn btn-accent" onclick="submitMatch()">Valider la partie</button>
       </div>
     </div>
     <div id="tab-history" class="tab-panel"><div class="loader"><div class="spin"></div>Chargement...</div></div>
     <div id="tab-stats" class="tab-panel">
       <div class="field" style="margin-bottom:16px;">
         <label>Joueur</label>
-        <select class="win-select" id="stats-player-select" style="margin-bottom:0" onchange="renderStats()">
+        <select class="wsel" id="stats-player-select" style="margin-bottom:0;" onchange="renderStats()">
           <option value="">-- Choisir un joueur --</option>
         </select>
       </div>
@@ -270,29 +220,28 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     </div>
     <div id="tab-players" class="tab-panel"><div class="loader"><div class="spin"></div>Chargement...</div></div>
     <div id="tab-groups" class="tab-panel"><div class="loader"><div class="spin"></div>Chargement...</div></div>
+    <div id="tab-admin" class="tab-panel"><div id="admin-panel"><div class="loader"><div class="spin"></div>Chargement...</div></div></div>
   </div>
 </div>
 
-<!-- MODAL: NOUVEAU GROUPE -->
 <div class="modal-backdrop" id="modal-new-group">
   <div class="modal">
-    <div class="modal-title">Créer un groupe</div>
+    <div class="modal-title">Creer un groupe</div>
     <div class="err" id="group-err"></div>
     <div class="field"><label>Nom du groupe</label><input id="group-name-input" type="text" placeholder="ex: Les Potes" maxlength="30"></div>
-    <div class="modal-actions">
-      <button class="btn btn-accent" style="flex:1" onclick="createGroup()">Créer</button>
+    <div class="macts">
+      <button class="btn btn-accent" style="flex:1" onclick="createGroup()">Creer</button>
       <button class="btn btn-outline" style="flex:1;margin-top:0" onclick="closeModal('modal-new-group')">Annuler</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: REJOINDRE GROUPE -->
 <div class="modal-backdrop" id="modal-join-group">
   <div class="modal">
     <div class="modal-title">Rejoindre un groupe</div>
     <div class="err" id="join-err"></div>
     <div class="field"><label>Code du groupe</label><input id="join-code-input" type="text" placeholder="ABC123" maxlength="6" style="text-transform:uppercase;letter-spacing:3px;font-family:monospace;font-size:18px;text-align:center;"></div>
-    <div class="modal-actions">
+    <div class="macts">
       <button class="btn btn-accent" style="flex:1" onclick="joinGroup()">Rejoindre</button>
       <button class="btn btn-outline" style="flex:1;margin-top:0" onclick="closeModal('modal-join-group')">Annuler</button>
     </div>
@@ -305,11 +254,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-// ══════════════════════════════════════════
-// 🔧 CONFIGURATION FIREBASE
-// Crée un projet sur https://console.firebase.google.com
-// Active "Realtime Database" et remplace les valeurs ci-dessous
-// ══════════════════════════════════════════
 const firebaseConfig = {
   apiKey: "AIzaSyCGnBFB0Iu8psV4H8-MLODyOF5_1I1Ax-Q",
   authDomain: "rankup-saintvidal.firebaseapp.com",
@@ -319,390 +263,497 @@ const firebaseConfig = {
   messagingSenderId: "1018715923099",
   appId: "1:1018715923099:web:eabc2ef18eae1ae915dc3e"
 };
-// ══════════════════════════════════════════
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-let currentUser = null;
-let currentGroupId = null;
-let currentGroupData = null;
-let allGroups = {};
-let unsubFn = null;
+let CU = null, CGid = null, CGdata = null, groups = {}, unsub = null;
 
-// ── HELPERS ──
 const genCode = () => Math.random().toString(36).substring(2,8).toUpperCase();
 const initials = n => n.slice(0,2).toUpperCase();
 const fmtDate = ts => new Date(ts).toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'});
 
-window.showToast = (msg, type='success') => {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.className = 'show ' + type;
-  clearTimeout(t._t); t._t = setTimeout(()=>t.className='', 2600);
-};
-window.openModal = id => document.getElementById(id).classList.add('open');
-window.closeModal = id => document.getElementById(id).classList.remove('open');
-window.clampScore = el => { let v=parseInt(el.value); if(!isNaN(v)){if(v<0)el.value=0;if(v>13)el.value=13;} };
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + (type || 'success');
+  clearTimeout(t._t);
+  t._t = setTimeout(function(){ t.className = ''; }, 2600);
+}
+window.openModal = function(id){ document.getElementById(id).classList.add('open'); };
+window.closeModal = function(id){ document.getElementById(id).classList.remove('open'); };
+window.clampScore = function(el){ var v=parseInt(el.value); if(!isNaN(v)){if(v<0)el.value=0;if(v>13)el.value=13;} };
 
-// ── AUTH ──
-window.login = async () => {
-  const name = document.getElementById('login-name').value.trim();
-  const pass = document.getElementById('login-pass').value;
-  const err = document.getElementById('login-err');
+window.doLogin = async function() {
+  var name = document.getElementById('login-name').value.trim();
+  var pass = document.getElementById('login-pass').value;
+  var err = document.getElementById('login-err');
   err.style.display = 'none';
-  if (!name||!pass){err.textContent='Remplis tous les champs.';err.style.display='block';return;}
+  if(!name || !pass){ err.textContent='Remplis tous les champs.'; err.style.display='block'; return; }
   try {
-    const snap = await get(ref(db,`users/${name}`));
-    if (!snap.exists()){err.textContent='Utilisateur introuvable.';err.style.display='block';return;}
-    if (snap.val().password !== btoa(pass)){err.textContent='Mot de passe incorrect.';err.style.display='block';return;}
-    currentUser = {name, ...snap.val()};
+    var snap = await get(ref(db, 'users/' + name));
+    if(!snap.exists()){ err.textContent='Utilisateur introuvable.'; err.style.display='block'; return; }
+    if(snap.val().password !== btoa(pass)){ err.textContent='Mot de passe incorrect.'; err.style.display='block'; return; }
+    CU = Object.assign({name: name}, snap.val());
     startApp();
-  } catch(e){err.textContent='Erreur: '+e.message;err.style.display='block';}
+  } catch(e){ err.textContent='Erreur: ' + e.message; err.style.display='block'; }
 };
 
-window.register = async () => {
-  const name = document.getElementById('login-name').value.trim();
-  const pass = document.getElementById('login-pass').value;
-  const err = document.getElementById('login-err');
-  err.style.display='none';
-  if (!name||!pass){err.textContent='Remplis tous les champs.';err.style.display='block';return;}
-  if (name.length<2){err.textContent='Nom trop court (2 min).';err.style.display='block';return;}
-  if (pass.length<4){err.textContent='Mot de passe trop court (4 min).';err.style.display='block';return;}
-  try {
-    if ((await get(ref(db,`users/${name}`))).exists()){err.textContent='Nom déjà pris.';err.style.display='block';return;}
-    const ud = {password:btoa(pass),createdAt:Date.now()};
-    await set(ref(db,`users/${name}`), ud);
-    currentUser = {name,...ud};
-    startApp();
-    showToast('Bienvenue '+name+' ! 🎮');
-  } catch(e){err.textContent='Erreur: '+e.message;err.style.display='block';}
+window.doShowInvite = function() {
+  var f = document.getElementById('invite-field');
+  var btn = document.getElementById('register-btn');
+  if(f.style.display === 'none' || f.style.display === ''){
+    f.style.display = 'block';
+    btn.textContent = 'Confirmer inscription';
+    btn.onclick = doRegister;
+  } else {
+    doRegister();
+  }
 };
 
-window.logout = () => {
-  currentUser=null;currentGroupId=null;currentGroupData=null;allGroups={};
-  if(unsubFn){unsubFn();unsubFn=null;}
-  document.getElementById('login-screen').classList.add('active');
+window.doRegister = async function() {
+  var name = document.getElementById('login-name').value.trim();
+  var pass = document.getElementById('login-pass').value;
+  var invite = document.getElementById('login-invite').value.trim().toUpperCase();
+  var err = document.getElementById('login-err');
+  err.style.display = 'none';
+  if(!name || !pass){ err.textContent='Remplis tous les champs.'; err.style.display='block'; return; }
+  if(name.length < 2){ err.textContent='Nom trop court (2 min).'; err.style.display='block'; return; }
+  if(pass.length < 4){ err.textContent='Mot de passe trop court (4 min).'; err.style.display='block'; return; }
+  try {
+    var adminSnap = await get(ref(db, 'admins'));
+    var isFirst = !adminSnap.exists();
+    if(!isFirst){
+      if(!invite){ err.textContent='Code invitation requis.'; err.style.display='block'; return; }
+      var invSnap = await get(ref(db, 'inviteCodes/' + invite));
+      if(!invSnap.exists() || invSnap.val().used){ err.textContent='Code invalide ou deja utilise.'; err.style.display='block'; return; }
+      await set(ref(db, 'inviteCodes/' + invite + '/used'), true);
+      await set(ref(db, 'inviteCodes/' + invite + '/usedBy'), name);
+    }
+    var exists = await get(ref(db, 'users/' + name));
+    if(exists.exists()){ err.textContent='Nom deja pris.'; err.style.display='block'; return; }
+    var ud = {password: btoa(pass), createdAt: Date.now(), isAdmin: isFirst};
+    await set(ref(db, 'users/' + name), ud);
+    if(isFirst) await set(ref(db, 'admins/' + name), true);
+    CU = Object.assign({name: name}, ud);
+    startApp();
+    showToast(isFirst ? 'Bienvenue admin ' + name + '!' : 'Bienvenue ' + name + '!');
+  } catch(e){ err.textContent='Erreur: ' + e.message; err.style.display='block'; }
+};
+
+window.doLogout = function() {
+  CU = null; CGid = null; CGdata = null; groups = {};
+  if(unsub){ unsub(); unsub = null; }
   document.getElementById('app-screen').classList.remove('active');
+  document.getElementById('login-screen').classList.add('active');
+  document.getElementById('invite-field').style.display = 'none';
+  document.getElementById('login-invite').value = '';
+  var btn = document.getElementById('register-btn');
+  btn.textContent = 'Creer un compte';
+  btn.onclick = doShowInvite;
 };
 
-function startApp() {
+function startApp(){
   document.getElementById('login-screen').classList.remove('active');
   document.getElementById('app-screen').classList.add('active');
-  document.getElementById('top-name').textContent = currentUser.name;
-  document.getElementById('top-avatar').textContent = initials(currentUser.name);
+  document.getElementById('top-name').textContent = CU.name;
+  document.getElementById('top-avatar').textContent = initials(CU.name);
   loadGroups();
 }
 
-// ── GROUPS ──
-async function loadGroups() {
-  allGroups = {};
-  const snap = await get(ref(db,`userGroups/${currentUser.name}`));
-  if (snap.exists()) {
-    for (const gid of Object.keys(snap.val())) {
-      const gs = await get(ref(db,`groups/${gid}`));
-      if (gs.exists()) allGroups[gid] = gs.val();
+async function loadGroups(){
+  groups = {};
+  var snap = await get(ref(db, 'userGroups/' + CU.name));
+  if(snap.exists()){
+    for(var gid of Object.keys(snap.val())){
+      var gs = await get(ref(db, 'groups/' + gid));
+      if(gs.exists()) groups[gid] = gs.val();
     }
   }
   renderGroupBar();
-  const ids = Object.keys(allGroups);
-  if (ids.length > 0) selectGroup(ids[0]);
-  else {
-    document.getElementById('group-bar-wrap').style.display='none';
-    document.getElementById('tab-rank').innerHTML='<div class="empty"><div class="empty-icon">🏠</div><div class="empty-text">Rejoins ou crée un groupe pour commencer !</div></div>';
-    document.getElementById('tab-groups').innerHTML='';
+  var ids = Object.keys(groups);
+  if(ids.length > 0) selectGroup(ids[0]);
+  else{
+    document.getElementById('group-bar-wrap').style.display = 'none';
+    document.getElementById('tab-rank').innerHTML = '<div class="empty"><div class="empty-icon">🏠</div><div class="empty-text">Rejoins ou cree un groupe !</div></div>';
     renderGroupsPanel();
   }
 }
 
-function renderGroupBar() {
-  const entries = Object.entries(allGroups);
-  document.getElementById('group-bar-wrap').style.display = entries.length?'block':'none';
+function renderGroupBar(){
+  var entries = Object.entries(groups);
+  document.getElementById('group-bar-wrap').style.display = entries.length ? 'block' : 'none';
   document.getElementById('group-bar').innerHTML =
-    entries.map(([id,g])=>`<div class="group-chip ${id===currentGroupId?'active':''}" onclick="selectGroup('${id}')">${g.name}</div>`).join('') +
-    `<button class="btn-sm btn-sm-ghost" onclick="openModal('modal-join-group')" style="white-space:nowrap;">🔑 Rejoindre</button>`;
+    entries.map(function(e){ return '<div class="gchip ' + (e[0]===CGid?'active':'') + '" onclick="selectGroup(\'' + e[0] + '\')">' + e[1].name + '</div>'; }).join('') +
+    '<button class="btn-sm btn-sm-ghost" onclick="openModal(\'modal-join-group\')" style="white-space:nowrap;">Rejoindre</button>';
 }
 
-window.selectGroup = gid => {
-  currentGroupId=gid; currentGroupData=allGroups[gid];
+window.selectGroup = async function(gid){
+  CGid = gid; CGdata = groups[gid];
   renderGroupBar();
-  if(unsubFn){unsubFn();unsubFn=null;}
-  unsubFn = onValue(ref(db,`groups/${gid}`), snap => {
+  if(unsub){ unsub(); unsub = null; }
+  unsub = onValue(ref(db, 'groups/' + gid), function(snap){
     if(!snap.exists()) return;
-    currentGroupData=snap.val(); allGroups[gid]=currentGroupData;
+    CGdata = snap.val(); groups[gid] = CGdata;
     refreshTab();
   });
 };
 
-window.createGroup = async () => {
-  const name = document.getElementById('group-name-input').value.trim();
-  const err = document.getElementById('group-err');
-  err.style.display='none';
-  if (!name){err.textContent='Donne un nom.';err.style.display='block';return;}
-  const code=genCode(), gid=push(ref(db,'groups')).key;
-  const g={name,code,createdBy:currentUser.name,createdAt:Date.now(),players:{},matches:{}};
-  await set(ref(db,`groups/${gid}`),g);
-  await set(ref(db,`userGroups/${currentUser.name}/${gid}`),true);
-  await set(ref(db,`groupCodes/${code}`),gid);
-  allGroups[gid]=g;
+window.createGroup = async function(){
+  var name = document.getElementById('group-name-input').value.trim();
+  var err = document.getElementById('group-err');
+  err.style.display = 'none';
+  if(!name){ err.textContent='Donne un nom.'; err.style.display='block'; return; }
+  var code = genCode();
+  var gid = push(ref(db, 'groups')).key;
+  var g = {name:name, code:code, createdBy:CU.name, createdAt:Date.now(), players:{}, matches:{}};
+  await set(ref(db, 'groups/' + gid), g);
+  await set(ref(db, 'userGroups/' + CU.name + '/' + gid), true);
+  await set(ref(db, 'groupCodes/' + code), gid);
+  groups[gid] = g;
   closeModal('modal-new-group');
-  document.getElementById('group-name-input').value='';
+  document.getElementById('group-name-input').value = '';
   selectGroup(gid); renderGroupsPanel();
-  showToast('Groupe créé ! Code: '+code);
+  showToast('Groupe cree ! Code: ' + code);
 };
 
-window.joinGroup = async () => {
-  const code=document.getElementById('join-code-input').value.trim().toUpperCase();
-  const err=document.getElementById('join-err');
-  err.style.display='none';
-  if(!code){err.textContent='Entre un code.';err.style.display='block';return;}
-  try {
-    const snap=await get(ref(db,`groupCodes/${code}`));
-    if(!snap.exists()){err.textContent='Code invalide.';err.style.display='block';return;}
-    const gid=snap.val();
-    await set(ref(db,`userGroups/${currentUser.name}/${gid}`),true);
-    allGroups[gid]=(await get(ref(db,`groups/${gid}`))).val();
+window.joinGroup = async function(){
+  var code = document.getElementById('join-code-input').value.trim().toUpperCase();
+  var err = document.getElementById('join-err');
+  err.style.display = 'none';
+  if(!code){ err.textContent='Entre un code.'; err.style.display='block'; return; }
+  try{
+    var snap = await get(ref(db, 'groupCodes/' + code));
+    if(!snap.exists()){ err.textContent='Code invalide.'; err.style.display='block'; return; }
+    var gid = snap.val();
+    await set(ref(db, 'userGroups/' + CU.name + '/' + gid), true);
+    groups[gid] = (await get(ref(db, 'groups/' + gid))).val();
     closeModal('modal-join-group');
-    document.getElementById('join-code-input').value='';
+    document.getElementById('join-code-input').value = '';
     selectGroup(gid); renderGroupsPanel();
-    showToast('Groupe rejoint ! 🎉');
-  } catch(e){err.textContent='Erreur: '+e.message;err.style.display='block';}
+    showToast('Groupe rejoint !');
+  }catch(e){ err.textContent='Erreur: ' + e.message; err.style.display='block'; }
 };
 
-function renderGroupsPanel() {
-  const entries=Object.entries(allGroups);
-  let html=entries.length===0?'<div class="empty"><div class="empty-icon">🔑</div><div class="empty-text">Aucun groupe pour l\'instant.</div></div>':'';
-  entries.forEach(([id,g])=>{
-    const pc=g.players?Object.keys(g.players).length:0;
-    const mc=g.matches?Object.keys(g.matches).length:0;
-    html+=`<div class="group-card">
-      <div class="group-card-header">
-        <div><div class="group-card-name">${g.name}</div><div class="group-card-meta">👥 ${pc} joueur(s) · ⚔️ ${mc} partie(s)</div></div>
-        <div><div class="group-code-btn" onclick="copyCode('${g.code}')">${g.code}</div><div class="copy-hint">copier</div></div>
-      </div>
-      ${id!==currentGroupId?`<button class="btn btn-outline" style="width:auto;padding:8px 16px;font-size:13px;margin-top:0;" onclick="selectGroup('${id}')">Sélectionner</button>`:'<span style="font-size:12px;color:var(--green);">✔ Actif</span>'}
-    </div>`;
+function renderGroupsPanel(){
+  var entries = Object.entries(groups);
+  var html = entries.length === 0 ? '<div class="empty"><div class="empty-icon">🔑</div><div class="empty-text">Aucun groupe.</div></div>' : '';
+  entries.forEach(function(e){
+    var id=e[0], g=e[1];
+    var pc = g.players ? Object.keys(g.players).length : 0;
+    var mc = g.matches ? Object.keys(g.matches).length : 0;
+    html += '<div class="gcard"><div class="gcH"><div><div class="gcN">' + g.name + '</div><div class="gcM">' + pc + ' joueur(s) - ' + mc + ' partie(s)</div></div>' +
+      '<div><div class="gcC" onclick="copyCode(\'' + g.code + '\')">' + g.code + '</div><div class="cphint">copier</div></div></div>' +
+      (id !== CGid ? '<button class="btn btn-outline" style="width:auto;padding:8px 16px;font-size:13px;margin-top:0;" onclick="selectGroup(\'' + id + '\')">Selectionner</button>' : '<span style="font-size:12px;color:var(--green);">Actif</span>') +
+      '</div>';
   });
-  html+=`<div style="display:flex;gap:10px;margin-top:12px;">
-    <button class="btn btn-accent" style="flex:1" onclick="openModal('modal-new-group')">+ Créer</button>
-    <button class="btn btn-outline" style="flex:1;margin-top:0" onclick="openModal('modal-join-group')">🔑 Rejoindre</button>
-  </div>`;
-  document.getElementById('tab-groups').innerHTML=html;
+  html += '<div style="display:flex;gap:10px;margin-top:12px;"><button class="btn btn-accent" style="flex:1" onclick="openModal(\'modal-new-group\')">+ Creer</button><button class="btn btn-outline" style="flex:1;margin-top:0" onclick="openModal(\'modal-join-group\')">Rejoindre</button></div>';
+  document.getElementById('tab-groups').innerHTML = html;
 }
 
-window.copyCode = code => navigator.clipboard.writeText(code).then(()=>showToast('Code copié: '+code));
+window.copyCode = function(code){ navigator.clipboard.writeText(code).then(function(){ showToast('Code copie: ' + code); }); };
 
-// ── PLAYERS ──
-const getPlayers = () => (currentGroupData&&currentGroupData.players)||{};
-const getMatches = () => currentGroupData&&currentGroupData.matches?Object.values(currentGroupData.matches):[];
+function getPlayers(){ return (CGdata && CGdata.players) || {}; }
+function getMatches(){ return CGdata && CGdata.matches ? Object.values(CGdata.matches) : []; }
+function getMatchEntries(){ return CGdata && CGdata.matches ? Object.entries(CGdata.matches) : []; }
 
-function renderPlayers() {
-  const players=getPlayers(); const entries=Object.entries(players);
-  const stats=computeStats();
-  let html=entries.length===0?'<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Aucun joueur.</div></div>':'<div class="players-list">';
-  entries.forEach(([pid,p])=>{
-    const s=stats[pid]||{wins:0,played:0};
-    html+=`<div class="player-item"><div class="player-item-left">
-      <div class="avatar" style="width:34px;height:34px;font-size:12px;">${initials(p.name)}</div>
-      <div><div style="font-weight:500;">${p.name}</div><div class="player-stats-mini">${s.wins}V · ${s.played-s.wins}D · ${s.played>0?((s.wins/s.played)*100).toFixed(0):0}%</div></div>
-    </div><button class="btn-danger" onclick="removePlayer('${pid}')">Retirer</button></div>`;
+function renderPlayers(){
+  var players = getPlayers();
+  var entries = Object.entries(players);
+  var stats = computeStats();
+  var html = entries.length === 0 ? '<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Aucun joueur.</div></div>' : '<div class="plist">';
+  entries.forEach(function(e){
+    var pid=e[0], p=e[1];
+    var s = stats[pid] || {wins:0, played:0};
+    html += '<div class="pitem"><div class="piL"><div class="avatar" style="width:34px;height:34px;font-size:12px;">' + initials(p.name) + '</div>' +
+      '<div><div style="font-weight:500;">' + p.name + '</div><div class="psm">' + s.wins + 'V - ' + (s.played-s.wins) + 'D - ' + (s.played>0?((s.wins/s.played)*100).toFixed(0):0) + '%</div></div>' +
+      '</div><button class="bdanger" onclick="removePlayer(\'' + pid + '\')">Retirer</button></div>';
   });
-  if(entries.length>0) html+='</div>';
-  document.getElementById('tab-players').innerHTML=html+`<div class="add-row"><input type="text" id="new-player-input" placeholder="Nouveau joueur..." maxlength="20"><button class="btn-sm btn-sm-accent" onclick="addPlayer()">+ Ajouter</button></div>`;
-  // update stats select
-  const sel=document.getElementById('stats-player-select');
-  const cur=sel.value;
-  sel.innerHTML='<option value="">-- Choisir un joueur --</option>'+entries.map(([id,p])=>`<option value="${id}"${id===cur?' selected':''}>${p.name}</option>`).join('');
+  if(entries.length > 0) html += '</div>';
+  document.getElementById('tab-players').innerHTML = html + '<div class="add-row"><input type="text" id="new-player-input" placeholder="Nouveau joueur..." maxlength="20"><button class="btn-sm btn-sm-accent" onclick="addPlayer()">+ Ajouter</button></div>';
+  var sel = document.getElementById('stats-player-select');
+  var cur = sel.value;
+  sel.innerHTML = '<option value="">-- Choisir un joueur --</option>' + entries.map(function(e){ return '<option value="' + e[0] + '"' + (e[0]===cur?' selected':'') + '>' + e[1].name + '</option>'; }).join('');
   renderMatchPlayers();
 }
 
-window.addPlayer = async () => {
-  if(!currentGroupId){showToast('Sélectionne un groupe.','error');return;}
-  const input=document.getElementById('new-player-input');
-  const name=input.value.trim(); if(!name) return;
-  const pid=push(ref(db,`groups/${currentGroupId}/players`)).key;
-  await set(ref(db,`groups/${currentGroupId}/players/${pid}`),{name,addedBy:currentUser.name,addedAt:Date.now()});
-  input.value=''; showToast(name+' ajouté !');
+window.addPlayer = async function(){
+  if(!CGid){ showToast('Selectionne un groupe.','error'); return; }
+  var input = document.getElementById('new-player-input');
+  var name = input.value.trim();
+  if(!name) return;
+  var pid = push(ref(db, 'groups/' + CGid + '/players')).key;
+  await set(ref(db, 'groups/' + CGid + '/players/' + pid), {name:name, addedBy:CU.name, addedAt:Date.now()});
+  input.value = '';
+  showToast(name + ' ajoute !');
 };
 
-window.removePlayer = async pid => {
+window.removePlayer = async function(pid){
   if(!confirm('Retirer ce joueur ?')) return;
-  await remove(ref(db,`groups/${currentGroupId}/players/${pid}`));
-  showToast('Joueur retiré.');
+  await remove(ref(db, 'groups/' + CGid + '/players/' + pid));
+  showToast('Joueur retire.');
 };
 
-// ── MATCH ──
-function renderMatchPlayers() {
-  const entries=Object.entries(getPlayers());
+function renderMatchPlayers(){
+  var entries = Object.entries(getPlayers());
   if(!entries.length){
-    document.getElementById('team-a-players').innerHTML='<div style="font-size:12px;color:var(--muted)">Ajoute des joueurs d\'abord</div>';
-    document.getElementById('team-b-players').innerHTML='';return;
+    document.getElementById('team-a-players').innerHTML = '<div style="font-size:12px;color:var(--muted)">Ajoute des joueurs</div>';
+    document.getElementById('team-b-players').innerHTML = '';
+    return;
   }
-  const mk=t=>entries.map(([id,p])=>`<label class="player-check"><input type="checkbox" name="team-${t}" value="${id}" onchange="guardTeams()"><span>${p.name}</span></label>`).join('');
-  document.getElementById('team-a-players').innerHTML=mk('a');
-  document.getElementById('team-b-players').innerHTML=mk('b');
+  var mkList = function(team){
+    return entries.map(function(e){
+      return '<label class="pcheck"><input type="checkbox" name="team-' + team + '" value="' + e[0] + '" onchange="guardTeams()"><span>' + e[1].name + '</span></label>';
+    }).join('');
+  };
+  document.getElementById('team-a-players').innerHTML = mkList('a');
+  document.getElementById('team-b-players').innerHTML = mkList('b');
 }
 
-window.guardTeams = () => {
-  const ca=[...document.querySelectorAll('input[name="team-a"]:checked')].map(x=>x.value);
-  const cb=[...document.querySelectorAll('input[name="team-b"]:checked')].map(x=>x.value);
-  document.querySelectorAll('input[name="team-b"]').forEach(x=>{x.disabled=ca.includes(x.value)&&!x.checked;});
-  document.querySelectorAll('input[name="team-a"]').forEach(x=>{x.disabled=cb.includes(x.value)&&!x.checked;});
+window.guardTeams = function(){
+  var ca = Array.from(document.querySelectorAll('input[name="team-a"]:checked')).map(function(x){ return x.value; });
+  var cb = Array.from(document.querySelectorAll('input[name="team-b"]:checked')).map(function(x){ return x.value; });
+  document.querySelectorAll('input[name="team-b"]').forEach(function(x){ x.disabled = ca.includes(x.value) && !x.checked; });
+  document.querySelectorAll('input[name="team-a"]').forEach(function(x){ x.disabled = cb.includes(x.value) && !x.checked; });
 };
 
-window.submitMatch = async () => {
-  if(!currentGroupId){showToast('Sélectionne un groupe.','error');return;}
-  const ta=[...document.querySelectorAll('input[name="team-a"]:checked')].map(x=>x.value);
-  const tb=[...document.querySelectorAll('input[name="team-b"]:checked')].map(x=>x.value);
-  const sa=parseInt(document.getElementById('score-a').value);
-  const sb=parseInt(document.getElementById('score-b').value);
-  const w=document.getElementById('winner-select').value;
-  if(!ta.length||!tb.length){showToast('Sélectionne les joueurs.','error');return;}
-  if(ta.length>3||tb.length>3){showToast('Max 3 joueurs par équipe.','error');return;}
-  if(isNaN(sa)||isNaN(sb)){showToast('Entre les scores.','error');return;}
-  if(sa!==13&&sb!==13){showToast('Le gagnant doit avoir 13.','error');return;}
-  if(sa>13||sb>13||sa<0||sb<0){showToast('Scores entre 0 et 13.','error');return;}
-  if(!w){showToast('Choisis l\'équipe gagnante.','error');return;}
-  if(w==='A'&&sa!==13){showToast('Équipe A gagnante → score A doit être 13.','error');return;}
-  if(w==='B'&&sb!==13){showToast('Équipe B gagnante → score B doit être 13.','error');return;}
-  await push(ref(db,`groups/${currentGroupId}/matches`),{teamA:ta,teamB:tb,scoreA:sa,scoreB:sb,winner:w,addedBy:currentUser.name,createdAt:Date.now()});
-  document.querySelectorAll('input[name="team-a"],input[name="team-b"]').forEach(x=>{x.checked=false;x.disabled=false;});
-  document.getElementById('score-a').value='';
-  document.getElementById('score-b').value='';
-  document.getElementById('winner-select').value='';
-  showToast('Partie enregistrée ! ⚔️');
+window.submitMatch = async function(){
+  if(!CGid){ showToast('Selectionne un groupe.','error'); return; }
+  var ta = Array.from(document.querySelectorAll('input[name="team-a"]:checked')).map(function(x){ return x.value; });
+  var tb = Array.from(document.querySelectorAll('input[name="team-b"]:checked')).map(function(x){ return x.value; });
+  var sa = parseInt(document.getElementById('score-a').value);
+  var sb = parseInt(document.getElementById('score-b').value);
+  var w = document.getElementById('winner-select').value;
+  if(!ta.length || !tb.length){ showToast('Selectionne les joueurs.','error'); return; }
+  if(ta.length > 3 || tb.length > 3){ showToast('Max 3 joueurs par equipe.','error'); return; }
+  if(isNaN(sa) || isNaN(sb)){ showToast('Entre les scores.','error'); return; }
+  if(sa !== 13 && sb !== 13){ showToast('Le gagnant doit avoir 13.','error'); return; }
+  if(!w){ showToast('Choisis le gagnant.','error'); return; }
+  if(w === 'A' && sa !== 13){ showToast('Equipe A gagnante => score A doit etre 13.','error'); return; }
+  if(w === 'B' && sb !== 13){ showToast('Equipe B gagnante => score B doit etre 13.','error'); return; }
+  await push(ref(db, 'groups/' + CGid + '/matches'), {teamA:ta, teamB:tb, scoreA:sa, scoreB:sb, winner:w, addedBy:CU.name, createdAt:Date.now()});
+  document.querySelectorAll('input[name="team-a"],input[name="team-b"]').forEach(function(x){ x.checked=false; x.disabled=false; });
+  document.getElementById('score-a').value = '';
+  document.getElementById('score-b').value = '';
+  document.getElementById('winner-select').value = '';
+  showToast('Partie enregistree !');
 };
 
-// ── STATS COMPUTATION ──
-function computeStats() {
-  const players=getPlayers(); const stats={};
-  Object.keys(players).forEach(pid=>stats[pid]={wins:0,losses:0,played:0,ga:0});
-  getMatches().forEach(m=>{
-    const wt=m.winner==='A'?m.teamA:m.teamB, lt=m.winner==='A'?m.teamB:m.teamA;
-    const ws=m.winner==='A'?m.scoreA:m.scoreB, ls=m.winner==='A'?m.scoreB:m.scoreA;
-    const diff=ws-ls;
-    wt.forEach(pid=>{if(!stats[pid])stats[pid]={wins:0,losses:0,played:0,ga:0};stats[pid].wins++;stats[pid].played++;stats[pid].ga+=diff;});
-    lt.forEach(pid=>{if(!stats[pid])stats[pid]={wins:0,losses:0,played:0,ga:0};stats[pid].losses++;stats[pid].played++;stats[pid].ga-=diff;});
+window.deleteMatch = async function(mid){
+  if(!confirm('Supprimer cette partie ?')) return;
+  await remove(ref(db, 'groups/' + CGid + '/matches/' + mid));
+  showToast('Partie supprimee.');
+};
+
+function computeStats(){
+  var players = getPlayers();
+  var stats = {};
+  Object.keys(players).forEach(function(pid){ stats[pid] = {wins:0, losses:0, played:0, ga:0}; });
+  getMatches().forEach(function(m){
+    var wt = m.winner==='A' ? m.teamA : m.teamB;
+    var lt = m.winner==='A' ? m.teamB : m.teamA;
+    var ws = m.winner==='A' ? m.scoreA : m.scoreB;
+    var ls = m.winner==='A' ? m.scoreB : m.scoreA;
+    var diff = ws - ls;
+    wt.forEach(function(pid){ if(!stats[pid]) stats[pid]={wins:0,losses:0,played:0,ga:0}; stats[pid].wins++; stats[pid].played++; stats[pid].ga+=diff; });
+    lt.forEach(function(pid){ if(!stats[pid]) stats[pid]={wins:0,losses:0,played:0,ga:0}; stats[pid].losses++; stats[pid].played++; stats[pid].ga-=diff; });
   });
   return stats;
 }
 
-function h2h(pA,pB) {
-  let wA=0,wB=0;
-  getMatches().forEach(m=>{
-    const aInA=m.teamA.includes(pA),aInB=m.teamB.includes(pA);
-    const bInA=m.teamA.includes(pB),bInB=m.teamB.includes(pB);
+function h2h(pA, pB){
+  var wA=0, wB=0;
+  getMatches().forEach(function(m){
+    var aInA=m.teamA.includes(pA), aInB=m.teamB.includes(pA);
+    var bInA=m.teamA.includes(pB), bInB=m.teamB.includes(pB);
     if(!((aInA&&bInB)||(aInB&&bInA))) return;
-    const aSide=aInA?'A':'B';
-    if(m.winner===aSide)wA++;else wB++;
+    if(m.winner === (aInA?'A':'B')) wA++; else wB++;
   });
-  return {wA,wB};
+  return {wA:wA, wB:wB};
 }
 
-// ── LEADERBOARD ──
-function renderLeaderboard() {
-  const players=getPlayers(); const entries=Object.entries(players);
-  if(!entries.length){document.getElementById('tab-rank').innerHTML='<div class="empty"><div class="empty-icon">🏆</div><div class="empty-text">Ajoute des joueurs dans l\'onglet Joueurs !</div></div>';return;}
-  const stats=computeStats();
-  const rows=entries.map(([id,p])=>({id,name:p.name,...(stats[id]||{wins:0,losses:0,played:0,ga:0})}))
-    .sort((a,b)=>{
-      const ra=a.played>0?a.wins/a.played:0, rb=b.played>0?b.wins/b.played:0;
-      if(rb!==ra) return rb-ra;
-      if(b.played!==a.played) return b.played-a.played;
-      const {wA,wB}=h2h(a.id,b.id);
-      if(wA!==wB) return wB-wA;
-      return b.ga-a.ga;
-    });
-  let html=`<table class="lb-table"><thead><tr><th>#</th><th style="text-align:left">Joueur</th><th>V</th><th>D</th><th>%</th><th>GA</th></tr></thead><tbody>`;
-  rows.forEach((p,i)=>{
-    const ratio=p.played>0?p.wins/p.played:0;
-    const rc=i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-other';
-    const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
-    html+=`<tr class="lb-row">
-      <td><span class="rank-num ${rc}">${medal||i+1}</span></td>
-      <td><div class="player-name-cell"><div class="avatar" style="width:28px;height:28px;font-size:10px;">${initials(p.name)}</div><span style="font-weight:500">${p.name}</span></div></td>
-      <td class="stat-good">${p.wins}</td>
-      <td class="stat-bad">${p.losses}</td>
-      <td><span style="font-family:'Orbitron',monospace;font-size:12px;font-weight:700;">${p.played>0?(ratio*100).toFixed(0):'-'}%</span>
-        <span class="ratio-bar"><span class="ratio-fill" style="width:${ratio*100}%"></span></span></td>
-      <td class="${p.ga>0?'stat-good':p.ga<0?'stat-bad':'stat-neutral'}" style="font-family:'Orbitron',monospace;font-size:12px;">${p.ga>0?'+':''}${p.ga}</td>
-    </tr>`;
+function renderLeaderboard(){
+  var players = getPlayers();
+  var entries = Object.entries(players);
+  if(!entries.length){ document.getElementById('tab-rank').innerHTML='<div class="empty"><div class="empty-icon">🏆</div><div class="empty-text">Ajoute des joueurs !</div></div>'; return; }
+  var stats = computeStats();
+  var rows = entries.map(function(e){ return Object.assign({id:e[0], name:e[1].name}, stats[e[0]]||{wins:0,losses:0,played:0,ga:0}); });
+  rows.sort(function(a,b){
+    var ra=a.played>0?a.wins/a.played:0, rb=b.played>0?b.wins/b.played:0;
+    if(rb!==ra) return rb-ra;
+    if(b.played!==a.played) return b.played-a.played;
+    var hh=h2h(a.id,b.id); if(hh.wA!==hh.wB) return hh.wB-hh.wA;
+    return b.ga-a.ga;
   });
-  html+='</tbody></table>';
-  document.getElementById('tab-rank').innerHTML=html;
+  var html = '<table class="lb-table"><thead><tr><th>#</th><th style="text-align:left">Joueur</th><th>V</th><th>D</th><th>%</th><th>GA</th></tr></thead><tbody>';
+  rows.forEach(function(p,i){
+    var ratio = p.played>0?p.wins/p.played:0;
+    var rc = i===0?'r1':i===1?'r2':i===2?'r3':'r0';
+    var medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
+    html += '<tr class="lb-row"><td><span class="rn ' + rc + '">' + (medal||i+1) + '</span></td>' +
+      '<td><div class="pnc"><div class="avatar" style="width:28px;height:28px;font-size:10px;">' + initials(p.name) + '</div><span style="font-weight:500">' + p.name + '</span></div></td>' +
+      '<td class="sg">' + p.wins + '</td><td class="sb">' + p.losses + '</td>' +
+      '<td><span style="font-family:Orbitron,monospace;font-size:12px;font-weight:700;">' + (p.played>0?(ratio*100).toFixed(0):'-') + '%</span><span class="rbar"><span class="rfill" style="width:' + (ratio*100) + '%"></span></span></td>' +
+      '<td class="' + (p.ga>0?'sg':p.ga<0?'sb':'sn') + '" style="font-family:Orbitron,monospace;font-size:12px;">' + (p.ga>0?'+':'') + p.ga + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('tab-rank').innerHTML = html;
 }
 
-// ── HISTORY ──
-function renderHistory() {
-  const players=getPlayers(); const matches=currentGroupData&&currentGroupData.matches?Object.entries(currentGroupData.matches):[];
-  if(!matches.length){document.getElementById('tab-history').innerHTML='<div class="empty"><div class="empty-icon">📜</div><div class="empty-text">Aucune partie encore.</div></div>';return;}
-  const gn=id=>players[id]?players[id].name:'?';
-  let html=matches.sort(([,a],[,b])=>b.createdAt-a.createdAt).map(([,m])=>{
-    const winA=m.winner==='A';
-    return `<div class="match-card">
-      <div class="match-card-top"><span class="match-meta">${fmtDate(m.createdAt)}</span><span class="match-meta">par ${m.addedBy}</span></div>
-      <div class="match-teams">
-        <div class="match-team ${winA?'winner':'loser'}">${m.teamA.map(id=>`<span class="player-tag">${gn(id)}</span>`).join('')}</div>
-        <div class="match-score"><span class="${winA?'sw':'sl'}">${m.scoreA}</span><span style="color:var(--muted);font-size:14px;"> – </span><span class="${!winA?'sw':'sl'}">${m.scoreB}</span></div>
-        <div class="match-team ${!winA?'winner':'loser'}" style="text-align:right">${m.teamB.map(id=>`<span class="player-tag">${gn(id)}</span>`).join('')}</div>
-      </div>
-    </div>`;
+function renderHistory(){
+  var players = getPlayers();
+  var entries = getMatchEntries();
+  if(!entries.length){ document.getElementById('tab-history').innerHTML='<div class="empty"><div class="empty-icon">📜</div><div class="empty-text">Aucune partie.</div></div>'; return; }
+  var gn = function(id){ return players[id]?players[id].name:'?'; };
+  var html = entries.sort(function(a,b){ return b[1].createdAt-a[1].createdAt; }).map(function(e){
+    var mid=e[0], m=e[1], winA=m.winner==='A';
+    return '<div class="mc"><div class="mct"><span class="mm">' + fmtDate(m.createdAt) + '</span><div style="display:flex;align-items:center;gap:8px;"><span class="mm">par ' + m.addedBy + '</span><button class="bdanger" style="padding:4px 10px;font-size:11px;" onclick="deleteMatch(\'' + mid + '\')">Supprimer</button></div></div>' +
+      '<div class="mteams"><div class="mteam ' + (winA?'win':'lose') + '">' + m.teamA.map(function(id){ return '<span class="ptag">' + gn(id) + '</span>'; }).join('') + '</div>' +
+      '<div class="mscore"><span class="' + (winA?'sw':'sl') + '">' + m.scoreA + '</span><span style="color:var(--muted);font-size:14px;"> - </span><span class="' + (!winA?'sw':'sl') + '">' + m.scoreB + '</span></div>' +
+      '<div class="mteam ' + (!winA?'win':'lose') + '" style="text-align:right">' + m.teamB.map(function(id){ return '<span class="ptag">' + gn(id) + '</span>'; }).join('') + '</div></div></div>';
   }).join('');
-  document.getElementById('tab-history').innerHTML=html;
+  document.getElementById('tab-history').innerHTML = html;
 }
 
-// ── STATS ──
-window.renderStats = () => {
-  const pid=document.getElementById('stats-player-select').value;
-  if(!pid){document.getElementById('stats-content').innerHTML='';return;}
-  const stats=computeStats(); const s=stats[pid]||{wins:0,losses:0,played:0,ga:0};
-  const ratio=s.played>0?((s.wins/s.played)*100).toFixed(1):'0.0';
-  // streak
-  const myM=getMatches().filter(m=>m.teamA.includes(pid)||m.teamB.includes(pid)).sort((a,b)=>a.createdAt-b.createdAt);
-  let maxS=0,curS=0,streak=0;
-  myM.forEach(m=>{const w=m.winner==='A'?m.teamA.includes(pid):m.teamB.includes(pid);if(w){curS++;if(curS>maxS)maxS=curS;}else curS=0;});
+window.renderStats = function(){
+  var pid = document.getElementById('stats-player-select').value;
+  if(!pid){ document.getElementById('stats-content').innerHTML=''; return; }
+  var stats = computeStats();
+  var s = stats[pid] || {wins:0,losses:0,played:0,ga:0};
+  var ratio = s.played>0?((s.wins/s.played)*100).toFixed(1):'0.0';
+  var myM = getMatches().filter(function(m){ return m.teamA.includes(pid)||m.teamB.includes(pid); }).sort(function(a,b){ return a.createdAt-b.createdAt; });
+  var maxS=0, curS=0, streak=0;
+  myM.forEach(function(m){ var w=m.winner==='A'?m.teamA.includes(pid):m.teamB.includes(pid); if(w){curS++;if(curS>maxS)maxS=curS;}else curS=0; });
   if(myM.length){
-    const last=myM[myM.length-1],lastW=last.winner==='A'?last.teamA.includes(pid):last.teamB.includes(pid);
-    let i=myM.length-1;
-    while(i>=0){const m=myM[i],w=m.winner==='A'?m.teamA.includes(pid):m.teamB.includes(pid);if(w===lastW){streak++;i--;}else break;}
+    var last=myM[myM.length-1], lastW=last.winner==='A'?last.teamA.includes(pid):last.teamB.includes(pid);
+    var i=myM.length-1;
+    while(i>=0){ var m=myM[i],w=m.winner==='A'?m.teamA.includes(pid):m.teamB.includes(pid); if(w===lastW){streak++;i--;}else break; }
     if(!lastW) streak=-streak;
   }
-  // h2h
-  const others=Object.entries(getPlayers()).filter(([id])=>id!==pid);
-  let h2hHtml=others.length?`<div class="section-title" style="margin-top:20px;">Confrontations directes</div>
-    <table class="h2h-table"><thead><tr><th>Adversaire</th><th>V</th><th>D</th></tr></thead><tbody>`:'';
-  others.forEach(([oid,op])=>{const h=h2h(pid,oid);h2hHtml+=`<tr><td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="width:22px;height:22px;font-size:8px;">${initials(op.name)}</div>${op.name}</div></td><td class="h2h-win">${h.wA}</td><td class="h2h-loss">${h.wB}</td></tr>`;});
-  if(others.length) h2hHtml+='</tbody></table>';
-  document.getElementById('stats-content').innerHTML=`
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-card-val">${ratio}%</div><div class="stat-card-label">Ratio victoires</div></div>
-      <div class="stat-card"><div class="stat-card-val">${s.played}</div><div class="stat-card-label">Parties jouées</div></div>
-      <div class="stat-card"><div class="stat-card-val stat-good">${s.wins}</div><div class="stat-card-label">Victoires</div></div>
-      <div class="stat-card"><div class="stat-card-val stat-bad">${s.losses}</div><div class="stat-card-label">Défaites</div></div>
-      <div class="stat-card"><div class="stat-card-val ${s.ga>=0?'stat-good':'stat-bad'}">${s.ga>0?'+':''}${s.ga}</div><div class="stat-card-label">Goal Average</div></div>
-      <div class="stat-card"><div class="stat-card-val ${streak>0?'stat-good':streak<0?'stat-bad':'stat-neutral'}">${streak>0?'🔥 '+streak:streak<0?'❄️ '+Math.abs(streak):'-'}</div><div class="stat-card-label">Série actuelle</div></div>
-    </div>
-    <div class="stat-card" style="margin-bottom:12px;"><div class="stat-card-val">${maxS}</div><div class="stat-card-label">Meilleure série</div></div>
-    ${h2hHtml}`;
+  var others = Object.entries(getPlayers()).filter(function(e){ return e[0]!==pid; });
+  var h2hHtml = others.length ? '<div class="sec" style="margin-top:20px;">Confrontations directes</div><table class="h2ht"><thead><tr><th>Adversaire</th><th>V</th><th>D</th></tr></thead><tbody>' : '';
+  others.forEach(function(e){
+    var h=h2h(pid,e[0]);
+    h2hHtml += '<tr><td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="width:22px;height:22px;font-size:8px;">' + initials(e[1].name) + '</div>' + e[1].name + '</div></td><td class="h2w">' + h.wA + '</td><td class="h2l">' + h.wB + '</td></tr>';
+  });
+  if(others.length) h2hHtml += '</tbody></table>';
+  document.getElementById('stats-content').innerHTML =
+    '<div class="sgrid">' +
+    '<div class="scard"><div class="scv">' + ratio + '%</div><div class="scl">Ratio victoires</div></div>' +
+    '<div class="scard"><div class="scv">' + s.played + '</div><div class="scl">Parties jouees</div></div>' +
+    '<div class="scard"><div class="scv sg">' + s.wins + '</div><div class="scl">Victoires</div></div>' +
+    '<div class="scard"><div class="scv sb">' + s.losses + '</div><div class="scl">Defaites</div></div>' +
+    '<div class="scard"><div class="scv ' + (s.ga>=0?'sg':'sb') + '">' + (s.ga>0?'+':'') + s.ga + '</div><div class="scl">Goal Average</div></div>' +
+    '<div class="scard"><div class="scv ' + (streak>0?'sg':streak<0?'sb':'sn') + '">' + (streak>0?'🔥 '+streak:streak<0?'❄️ '+Math.abs(streak):'-') + '</div><div class="scl">Serie actuelle</div></div>' +
+    '</div><div class="scard" style="margin-bottom:12px;"><div class="scv">' + maxS + '</div><div class="scl">Meilleure serie</div></div>' + h2hHtml;
 };
 
-// ── TABS ──
-const tabNames=['rank','match','history','stats','players','groups'];
-window.switchTab = tab => {
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+async function checkAdmin(){ var s=await get(ref(db,'admins/'+CU.name)); return s.exists(); }
+
+window.generateInviteCode = async function(){
+  if(!(await checkAdmin())){ showToast('Acces refuse.','error'); return; }
+  var code = genCode();
+  await set(ref(db,'inviteCodes/'+code),{createdBy:CU.name,createdAt:Date.now(),used:false});
+  showToast('Code cree: '+code);
+  renderAdminPanel();
+};
+
+window.makeAdmin = async function(username){
+  if(!(await checkAdmin())){ showToast('Acces refuse.','error'); return; }
+  await set(ref(db,'admins/'+username),true);
+  await set(ref(db,'users/'+username+'/isAdmin'),true);
+  showToast(username+' est admin !');
+  renderAdminPanel();
+};
+
+window.removeAdminRole = async function(username){
+  if(username===CU.name){ showToast('Tu ne peux pas te retirer.','error'); return; }
+  if(!(await checkAdmin())){ showToast('Acces refuse.','error'); return; }
+  await remove(ref(db,'admins/'+username));
+  await set(ref(db,'users/'+username+'/isAdmin'),false);
+  showToast(username+' retiré admin.');
+  renderAdminPanel();
+};
+
+window.deleteUser = async function(username){
+  if(username===CU.name){ showToast('Tu ne peux pas te supprimer.','error'); return; }
+  if(!(await checkAdmin())){ showToast('Acces refuse.','error'); return; }
+  if(!confirm('Supprimer le compte de '+username+' ?')) return;
+  await remove(ref(db,'users/'+username));
+  await remove(ref(db,'admins/'+username));
+  showToast('Compte supprime.');
+  renderAdminPanel();
+};
+
+window.deleteInviteCode = async function(code){
+  if(!(await checkAdmin())){ showToast('Acces refuse.','error'); return; }
+  await remove(ref(db,'inviteCodes/'+code));
+  showToast('Code supprime.');
+  renderAdminPanel();
+};
+
+async function renderAdminPanel(){
+  var panel = document.getElementById('admin-panel');
+  if(!panel) return;
+  var admin = await checkAdmin();
+  if(!admin){ panel.innerHTML='<div class="empty"><div class="empty-icon">🔒</div><div class="empty-text">Acces reserve aux administrateurs.</div></div>'; return; }
+  var usersSnap = await get(ref(db,'users'));
+  var adminsSnap = await get(ref(db,'admins'));
+  var codesSnap = await get(ref(db,'inviteCodes'));
+  var users = usersSnap.exists()?usersSnap.val():{};
+  var admins = adminsSnap.exists()?adminsSnap.val():{};
+  var codes = codesSnap.exists()?codesSnap.val():{};
+  var activeCodes = Object.entries(codes).filter(function(e){ return !e[1].used; });
+  var usedCount = Object.values(codes).filter(function(c){ return c.used; }).length;
+  var html = '<div class="sec">Codes invitation</div>';
+  html += '<button class="btn btn-accent" style="width:auto;padding:10px 20px;margin-bottom:16px;" onclick="generateInviteCode()">+ Generer un code</button>';
+  if(!activeCodes.length){
+    html += '<div style="font-size:13px;color:var(--muted);margin-bottom:16px;">Aucun code actif.</div>';
+  } else {
+    html += '<div class="plist" style="margin-bottom:8px;">';
+    activeCodes.forEach(function(e){
+      var code=e[0], c=e[1];
+      html += '<div class="pitem"><div class="piL"><div style="font-family:monospace;font-size:18px;letter-spacing:3px;color:var(--accent);font-weight:700;">' + code + '</div><div class="psm">par ' + c.createdBy + '</div></div>' +
+        '<div style="display:flex;gap:8px;"><button class="btn-sm btn-sm-ghost" onclick="navigator.clipboard.writeText(\'' + code + '\').then(function(){showToast(\'Copie !\')})" >Copier</button><button class="bdanger" onclick="deleteInviteCode(\'' + code + '\')">X</button></div></div>';
+    });
+    html += '</div>';
+  }
+  if(usedCount > 0) html += '<div style="font-size:12px;color:var(--muted);margin-bottom:20px;">' + usedCount + ' code(s) utilise(s)</div>';
+  html += '<div class="sec">Comptes utilisateurs</div><div class="plist">';
+  Object.entries(users).forEach(function(e){
+    var uname=e[0], isAdm=admins[uname], isMe=uname===CU.name;
+    html += '<div class="pitem"><div class="piL"><div class="avatar" style="width:34px;height:34px;font-size:12px;">' + uname.slice(0,2).toUpperCase() + '</div>' +
+      '<div><div style="font-weight:500;">' + uname + (isAdm?' 👑':'') + (isMe?' (moi)':'') + '</div><div class="psm">' + (isAdm?'Administrateur':'Membre') + '</div></div></div>' +
+      '<div style="display:flex;gap:6px;">' +
+      (!isAdm&&!isMe ? '<button class="btn-sm btn-sm-accent" onclick="makeAdmin(\'' + uname + '\')">Admin</button>' : '') +
+      (isAdm&&!isMe ? '<button class="btn-sm btn-sm-ghost" onclick="removeAdminRole(\'' + uname + '\')">-admin</button>' : '') +
+      (!isMe ? '<button class="bdanger" onclick="deleteUser(\'' + uname + '\')">X</button>' : '') +
+      '</div></div>';
+  });
+  html += '</div>';
+  panel.innerHTML = html;
+}
+
+var tabNames = ['rank','match','history','stats','players','groups','admin'];
+window.switchTab = function(tab){
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
   document.querySelectorAll('.tab')[tabNames.indexOf(tab)].classList.add('active');
   document.getElementById('tab-'+tab).classList.add('active');
   refreshTab();
 };
 
-function refreshTab() {
-  const id=document.querySelector('.tab-panel.active')?.id;
+function refreshTab(){
+  var active = document.querySelector('.tab-panel.active');
+  if(!active) return;
+  var id = active.id;
   if(id==='tab-rank') renderLeaderboard();
   else if(id==='tab-history') renderHistory();
   else if(id==='tab-players') renderPlayers();
   else if(id==='tab-match') renderMatchPlayers();
-  else if(id==='tab-stats'){renderPlayers();renderStats();}
+  else if(id==='tab-stats'){ renderPlayers(); renderStats(); }
   else if(id==='tab-groups') renderGroupsPanel();
+  else if(id==='tab-admin') renderAdminPanel();
 }
 </script>
 </body>
